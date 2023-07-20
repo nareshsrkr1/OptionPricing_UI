@@ -41,5 +41,5 @@ jobs:
           docker stop $(docker ps -aq --filter "ancestor=rahuldocker122/my-react-ui")
           docker rmi -f $(docker images -q rahuldocker122/my-react-ui)
           docker pull rahuldocker122/my-react-ui:latest
-          docker run -d -p 3000:3000 rahuldocker122/my-react-ui:latest
+          docker run -d -p 3000:80 rahuldocker122/my-react-ui:latest
           sh /home/azureuser/cleanup.sh
