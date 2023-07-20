@@ -3,7 +3,7 @@ name: Docker Hub Deployment UI
 on:
   push:
     branches:
-      - develop
+      - master
   workflow_dispatch: # Manual trigger
 
 env:
