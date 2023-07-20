@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Slider, TextField, Typography } from '@mui/material';
+import flaskService from '../services/flaskAPIService';
 
 const OptionPricing: React.FC = () => {
   const [spotPrice, setSpotPrice] = useState<string>('');
@@ -12,7 +13,7 @@ const OptionPricing: React.FC = () => {
   const [outputMonteCarlo, setOutputMonteCarlo] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
 
-  const handleModelButtonClick = () => {
+  const handleModelButtonClick = async () => {
     if (!isValidInput()) {
       setOutputError('Error: Please enter valid numerical values for all inputs.');
       setIsError(true);
@@ -23,13 +24,13 @@ const OptionPricing: React.FC = () => {
     const strikePriceNumber = parseFloat(strikePrice);
     const maturityNumber = parseFloat(maturity);
 
-    // API call and output calculation here (replace with actual API call)
-    const callPremium = Math.random() * 100; // Dummy value, replace with actual calculation
+    // API call and output calculation here 
+    const callPremium = await flaskService.predictWithNN({"Spot_Price": spotPriceNumber, "Strike_Price": strikePriceNumber, "Maturity": maturityNumber, "risk_free_interest": riskFreeRate, "Volatility": volatility/100 })
     setOutputModel(`Call Premium calculated by Model: ${callPremium}`);
     setIsError(false);
   };
 
-  const handleMonteCarloButtonClick = () => {
+  const handleMonteCarloButtonClick = async () => {
     if (!isValidInput()) {
       setOutputError('Error: Please enter valid numerical values for all inputs.');
       setIsError(true);
@@ -40,8 +41,8 @@ const OptionPricing: React.FC = () => {
     const strikePriceNumber = parseFloat(strikePrice);
     const maturityNumber = parseFloat(maturity);
 
-    // API call and output calculation here (replace with actual API call)
-    const callPremium = Math.random() * 100; // Dummy value, replace with actual calculation
+    // API call and output calculation here 
+    const callPremium = await flaskService.predictWithMonteCarlos({"Spot_Price": spotPriceNumber, "Strike_Price": strikePriceNumber, "Maturity": maturityNumber, "risk_free_interest": riskFreeRate, "Volatility": volatility/100 })
     setOutputMonteCarlo(`Call Premium calculated by Monte Carlos: ${callPremium}`);
     setIsError(false);
   };

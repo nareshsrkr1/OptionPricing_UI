@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import Comparison from './comparisonTab';
-import LandingPage from './LandingPage';
-import OptionPricing from './OptionPricing';
-import Sidebar from './Sidebar';
+import Comparison from './components/comparisonTab';
+import LandingPage from './components/LandingPage';
+import OptionPricing from './components/OptionPricing';
+import Sidebar from './components/Sidebar';
 
 const App: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('');
