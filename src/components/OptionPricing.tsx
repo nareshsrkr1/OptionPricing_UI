@@ -78,7 +78,7 @@ const OptionPricing: React.FC = () => {
       <Typography variant="h4" sx={{ marginBottom: '8px', marginTop: '18px', fontWeight: 'bold' }}>
         Option Pricing
       </Typography>
-      <Typography variant="subtitle1" sx={{ marginBottom: '26px' }}>
+      <Typography variant="subtitle1" sx={{ marginBottom: '16px' }}>
         Add your inputs and select which method to use for predicting the Call Price
       </Typography>
       <Box

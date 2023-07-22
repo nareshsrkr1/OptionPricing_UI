@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://workshop.eastus.cloudapp.azure.com:5000'; 
+const API_BASE_URL = 'http://20.157.24.140:5000'; 
 
 const flaskService = {
 
