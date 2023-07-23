@@ -67,6 +67,32 @@ const Comparison: React.FC = () => {
     floatingFilter: true
   };
 
+  const cellStyler = (params: any) => {
+    
+    const actualVal = params.data.Call_Premium;
+    const monteVal = params.data.Monte_Carlos_Value;
+    const modelVal = params.data.Model_Value;
+
+    const monteDiff = Math.abs(monteVal-actualVal);
+    const modelDiff = Math.abs(modelVal-actualVal);
+
+    if(params.data.Model_Value !== undefined){
+    if (monteDiff > modelDiff){
+      if(params.column.colId == "Model_Value"){
+        return {backgroundColor: "#18A558", color: "black", fontWeight: "bold"}
+      }
+
+    }
+    else if (monteDiff < modelDiff){
+      if(params.column.colId == "Monte_Carlos_Value"){
+        return {backgroundColor: "#18A558", color: "black", fontWeight: "bold"}
+      }
+    }
+  }
+    
+
+  }
+
   const columnDefs: ColDef[] = [
    
     { field: 'Spot_Price', headerName: 'Spot Price' , valueFormatter: customValueFormatter },
@@ -74,8 +100,9 @@ const Comparison: React.FC = () => {
     { field: 'Maturity', headerName: 'Maturity (In Days)' },
     { field: 'risk_free_interest', headerName: 'Risk-Free Interest Rate' },
     { field: 'Volatility', headerName: 'Volatility' },
-    { field: 'Call_Premium', headerName: 'Call Price(MC)' , valueFormatter: customValueFormatter },
-    { field: 'Option_Value', headerName: 'Call Price by DNN', valueFormatter: customValueFormatter }
+    { field: 'Call_Premium', headerName: 'Actual Call Price' , valueFormatter: customValueFormatter },
+    { field: 'Monte_Carlos_Value', headerName: 'Monte Carlo Call Price', valueFormatter: customValueFormatter , cellStyle: cellStyler},
+    { field: 'Model_Value', headerName: 'Ominor Call Price', valueFormatter: customValueFormatter,  cellStyle: cellStyler }
     
   ];
 
@@ -93,10 +120,10 @@ const Comparison: React.FC = () => {
       }}
     >
       <Typography variant="h4" style={{ marginBottom: '12px', fontWeight: 'bold', marginTop: '12px' }}>
-        Evaluating our Trained NN with 1000 OTC Derivatives
+        Evaluating our Ominor Model with 1000 Derivatives
       </Typography>
       <Button variant="contained" color="primary" onClick={handleGenerateResults} style={{ marginBottom: '16px', marginTop: '10px' }}>
-        Generate Call Price by Neural Network
+        Generate Call Price by Ominor Model
       </Button>
       { runtime>0 && <Box
             sx={{
